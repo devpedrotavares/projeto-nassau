@@ -5,7 +5,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const API_URL = "http://localhost:80/login";
+  const API_URL = "http://localhost:8080/login";
 
   async function doLogin(){
     try{
