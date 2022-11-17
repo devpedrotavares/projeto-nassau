@@ -7,7 +7,7 @@ import {useEffect} from 'react';
 function ClientHome(){
     const [animals, setAnimals] = useState([]);
 
-    const API_URL = "http://localhost:8080";
+    const API_URL = "http://localhost:8080/animais";
 
     async function doFetchAnimals(){
         try{

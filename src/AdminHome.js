@@ -8,7 +8,7 @@ import {useEffect} from 'react';
 function AdminHome(){
     const [animals, setAnimals] = useState([]);
 
-    const API_URL = "https://ef298b0e-4018-4748-bb80-885dd865dd74.mock.pstmn.io/animais";
+    const API_URL = "http://localhost:8080/animais";
 
     
     async function doFetchAnimals(){
@@ -34,7 +34,7 @@ function AdminHome(){
       try{
         
         //falta adicionar o index correto à URL
-        const response = await fetch(API_URL, {
+        const response = await fetch(API_URL + "/" + index, {
           method: 'DELETE'
         })
 

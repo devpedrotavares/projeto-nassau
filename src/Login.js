@@ -6,7 +6,7 @@ function Login({setComponent}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const API_URL = "https://ef298b0e-4018-4748-bb80-885dd865dd74.mock.pstmn.io/login";
+  const API_URL = "http://localhost:8080/login";
 
   async function doLogin(){
     try{
