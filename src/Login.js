@@ -1,11 +1,12 @@
-import './Login.css';
+import './css/login.css';
+import './css/global.css';
 import {useState} from 'react';
 
-function Login() {
+function Login({setComponent}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const API_URL = "http://localhost:8080/login";
+  const API_URL = "https://ef298b0e-4018-4748-bb80-885dd865dd74.mock.pstmn.io/login";
 
   async function doLogin(){
     try{
@@ -23,14 +24,16 @@ function Login() {
       handleResponse(response);
 
     } catch(error){
-        handleResponse(false);
+        alert("Falha no login...");
         console.log(error);
     }
   }
 
-  function handleResponse(ok){
-    if(ok){
-      alert("Login feito com sucesso!");
+  function handleResponse(response){
+    if(response.ok){
+      response.json().then((body) => {
+        body.isAdmin === "true" ? setComponent("AdminHome") : setComponent("ClientHome");
+      })
     }
     else{
       alert("Falha no login...");
@@ -38,14 +41,18 @@ function Login() {
   }
 
   return (
-    <div className="container">
-      <div className="login-form">
-        <h1>Login</h1>
-          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
-          <input type="password" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)}></input>
-          <button onClick={() => doLogin()}>Send</button>
-      </div>
-    </div>
+    <div className="card">
+      <h1>Login</h1>
+      <form>
+        <input type="text" placeholder="Usuário"/>
+        <input type="password" placeholder="Senha"/>
+        <button onClick={() => doLogin()}>Log in</button>
+        <div className="otherOptions">
+          <a href="#">Novo usuário? Cadastre-se</a>
+          <a href="#">Esqueceu a senha</a>
+        </div>
+      </form>
+  </div>
   );
 }
 
