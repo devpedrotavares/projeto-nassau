@@ -1,6 +1,6 @@
 .titulo{
   display: grid;
-  grid-template-columns: 15rem 15rem 15rem 15rem 15rem 7rem;
+  grid-template-columns: 15rem 15rem 15rem 15rem 15rem 15rem 7rem;
 }
 
 .dados{
@@ -10,7 +10,7 @@
 
 .animal{
   display: grid;
-  grid-template-columns: 15rem 15rem 15rem 15rem 15rem 7rem;
+  grid-template-columns: 15rem 15rem 15rem 15rem 15rem 15rem 7rem;
   background: #aae4ff;
   padding: 1rem 0;
   border-radius: 10px;

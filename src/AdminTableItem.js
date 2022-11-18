@@ -1,13 +1,14 @@
 function AdminTableItem(props){
-    const {nome, raca, idade, vacinado, castrado} = props.item;
+    const {id, nome, raca, idade, vacinado, castrado} = props.item;
     return(
-        <div className="animal" key={props.index}>
-            <h3>{nome}</h3>
+        <div className="animal">
+            <h3>{id}</h3>
+            <p>{nome}</p>
             <p>{raca}</p>
             <p>{idade}</p>
             <p>{vacinado ? "Sim" : "Não"}</p>
             <p>{castrado ? "Sim" : "Não"}</p>
-            <button onClick={() => props.handleDelete(props.key)} className="add-delete-button">-</button>
+            <button onClick={() => props.handleDelete(id)} className="add-delete-button">-</button>
         </div>
     );
 }

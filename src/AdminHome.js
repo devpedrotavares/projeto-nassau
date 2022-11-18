@@ -8,17 +8,16 @@ import {useEffect} from 'react';
 function AdminHome(){
     const [animals, setAnimals] = useState([]);
 
-    const API_URL = "http://localhost:8080/animais";
-
+    const API_URL = "http://localhost:8000";
     
     async function doFetchAnimals(){
         try{
-          const response = await fetch(API_URL, {
+          const response = await fetch(API_URL + "/animais", {
             method: 'GET'
           })
           
           const body = await response.json();
-          setAnimals(body);
+          setAnimals(convertToAnimals(body));
 
         } catch(error){
             alert("Um erro ocorreu...");
@@ -26,21 +25,33 @@ function AdminHome(){
         }
       }
 
+      function convertToAnimals(array){
+        const result = [];
+        for(let i = 0; i < array.length; i++){
+          result.push({
+            "id": array[i][0],
+            "nome": array[i][1],
+            "raca":array[i][2],
+            "vacinado": array[i][3],
+            "castrado": array[i][4],
+            "idade": array[i][5]
+          });
+        }
+        return result;
+      }
+
     useEffect(() => {
       doFetchAnimals()
     }, []);
 
-    async function handleDelete(index){
+    async function handleDelete(id){
       try{
-        
-        //falta adicionar o index correto à URL
-        const response = await fetch(API_URL + "/" + index, {
-          method: 'DELETE'
+        const response = await fetch(API_URL + "/delanimal/" + id, {
+          method: 'GET'
         })
 
         if(response.ok){
-          animals.splice(index, 1);
-          setAnimals([...animals]);
+          setAnimals(animals.filter(animal => animal.id !== id));
         }
         else{
           alert("Não foi possível deletar...");
@@ -55,12 +66,13 @@ function AdminHome(){
     async function handleAdd(animal){
       try{
         
-        const response = await fetch(API_URL, {
+        const response = await fetch(API_URL + "/cadanimal/", {
           method: 'POST',
           headers: {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
+            "id": 0,
             "nome": animal.nome,
             "raca": animal.raca,
             "idade": animal.idade,
@@ -70,7 +82,8 @@ function AdminHome(){
         })
 
         if(response.ok){
-          setAnimals([...animals, animal]);
+          const body = await response.json();
+          setAnimals([...animals, {...animal, "id": body.id}]);
         }
         else{
           alert("Não foi possível criar o animal...");
@@ -86,6 +99,7 @@ function AdminHome(){
         <div className="card" id="animais">
         <h1>Animais disponíveis para adoção</h1>
           <div className="titulo">
+            <h2 className="id">ID</h2>
             <h2 className="nome">Nome</h2>
             <h2 className="raca">Raça</h2>
             <h2 className="idade">Idade</h2>

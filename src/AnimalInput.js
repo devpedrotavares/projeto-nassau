@@ -9,9 +9,10 @@ function AnimalInput(props){
 
     return(
         <div className="animal">
+            <input className="animal-input" readOnly placeholder='autogerado'></input>
             <input className="animal-input" value={nome} onChange={(e) => setNome(e.target.value)}/>
             <input className="animal-input" value={raca} onChange={(e) => setRaca(e.target.value)}/>
-            <input className="animal-input" value={idade} onChange={(e) => setIdade(e.target.value)}/>
+            <input className="animal-input" type="number" value={idade} onChange={(e) => setIdade(e.target.value)}/>
             <input className="animal-input" type="checkbox" onChange={(e) => setVacinado(e.target.checked)}/>
             <input className="animal-input" type="checkbox" onChange={(e) => setCastrado(e.target.checked)}/>
             <button onClick={() => props.handleAdd({"nome":nome, "raca":raca, "idade":idade, "vacinado":vacinado, "castrado":castrado})} className="add-delete-button">+</button>
